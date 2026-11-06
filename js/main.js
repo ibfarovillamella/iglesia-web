@@ -19,6 +19,13 @@ function obtenerIdYoutube(url) {
   return coincidencia ? coincidencia[1] : null;
 }
 
+function formatearFecha(fecha) {
+  if (!fecha) return '';
+  const f = new Date(String(fecha).slice(0, 10) + 'T00:00:00');
+  if (isNaN(f)) return '';
+  return f.toLocaleDateString('es-DO', { day: 'numeric', month: 'long', year: 'numeric' });
+}
+
 // ---------- Actividades ----------
 async function cargarActividades() {
   const contenedor = document.getElementById('listaActividades');
@@ -42,6 +49,43 @@ async function cargarActividades() {
     `).join('');
   } catch (error) {
     contenedor.innerHTML = '<p class="vacio">No se pudieron cargar las actividades.</p>';
+  }
+}
+
+// ---------- Noticias ----------
+async function cargarNoticias() {
+  const contenedor = document.getElementById('listaNoticias');
+  try {
+    const respuesta = await fetch('data/noticias.json');
+    const datos = await respuesta.json();
+    const noticias = (datos.items || []).slice().sort((a, b) =>
+      String(b.fecha || '').localeCompare(String(a.fecha || ''))
+    );
+
+    if (noticias.length === 0) {
+      contenedor.innerHTML = '<p class="vacio">Pronto publicaremos nuevas noticias.</p>';
+      return;
+    }
+
+    contenedor.innerHTML = noticias.map(n => {
+      const imagen = n.imagen
+        ? `<img src="${escapar(n.imagen)}" alt="${escapar(n.titulo)}" loading="lazy">`
+        : '';
+      const fecha = formatearFecha(n.fecha);
+      const texto = escapar(n.texto).replace(/\n/g, '<br>');
+      return `
+        <article class="card noticia">
+          ${imagen}
+          <div class="noticia-cuerpo">
+            ${fecha ? `<p class="noticia-fecha">${fecha}</p>` : ''}
+            <h3>${escapar(n.titulo)}</h3>
+            <p>${texto}</p>
+          </div>
+        </article>
+      `;
+    }).join('');
+  } catch (error) {
+    contenedor.innerHTML = '<p class="vacio">No se pudieron cargar las noticias.</p>';
   }
 }
 
@@ -74,4 +118,5 @@ async function cargarVideos() {
 }
 
 cargarActividades();
+cargarNoticias();
 cargarVideos();
