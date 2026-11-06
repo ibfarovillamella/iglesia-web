@@ -51,3 +51,5 @@ body { font-family: 'Segoe UI', Arial, sans-serif; color: var(--negro); line-hei
   .nav.abierto { display: flex; }
   .nav a { margin: 0; padding: 1rem 1.5rem; border-top: 1px solid #222; }
 }
+.footer-info a { color: var(--blanco); text-decoration: underline; }
+.footer-info a:hover { color: var(--azul-claro); }
