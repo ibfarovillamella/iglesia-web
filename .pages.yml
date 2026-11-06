@@ -1,0 +1,46 @@
+media:
+  input: img
+  output: img
+
+content:
+  - name: actividades
+    label: Actividades y horarios
+    type: file
+    path: data/actividades.json
+    format: json
+    fields:
+      - name: items
+        label: Lista de actividades
+        type: object
+        list: true
+        fields:
+          - name: titulo
+            label: Actividad
+            type: string
+          - name: dia
+            label: Día
+            type: string
+          - name: hora
+            label: Hora
+            type: string
+          - name: lugar
+            label: Lugar
+            type: string
+
+  - name: videos
+    label: Videos de YouTube
+    type: file
+    path: data/videos.json
+    format: json
+    fields:
+      - name: items
+        label: Lista de videos
+        type: object
+        list: true
+        fields:
+          - name: titulo
+            label: Título del video
+            type: string
+          - name: enlace
+            label: Enlace de YouTube
+            type: string
