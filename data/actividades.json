@@ -1,0 +1,20 @@
+[
+  {
+    "titulo": "Culto Dominical (Mañana)",
+    "dia": "Domingos",
+    "hora": "9:30 AM - 12:00 PM",
+    "lugar": "Iglesia Bautista El Faro"
+  },
+  {
+    "titulo": "Culto Dominical (Tarde)",
+    "dia": "Domingos",
+    "hora": "6:00 PM - 7:30 PM",
+    "lugar": "Iglesia Bautista El Faro"
+  },
+  {
+    "titulo": "Estudio Bíblico y Oración",
+    "dia": "Miércoles",
+    "hora": "7:00 PM - 8:30 PM",
+    "lugar": "Iglesia Bautista El Faro"
+  }
+]
