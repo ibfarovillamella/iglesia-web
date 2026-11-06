@@ -15,7 +15,9 @@
     <nav class="nav" id="nav">
       <a href="#inicio">Inicio</a>
       <a href="#actividades">Actividades</a>
+      <a href="#noticias">Noticias</a>
       <a href="#videos">Videos</a>
+      <a href="#ubicacion">Ubicación</a>
       <a href="#contacto">Contacto</a>
     </nav>
   </header>
@@ -34,10 +36,31 @@
       </div>
     </section>
 
+    <section id="noticias" class="section section-gris">
+      <h2>Noticias y avisos</h2>
+      <div class="grid" id="listaNoticias">
+        <p>Cargando...</p>
+      </div>
+    </section>
+
     <section id="videos" class="section section-dark">
       <h2>Videos</h2>
       <div class="grid" id="listaVideos">
         <p>Cargando...</p>
+      </div>
+    </section>
+
+    <section id="ubicacion" class="section">
+      <h2>Dónde estamos</h2>
+      <p class="direccion">Calle Calixto García 17, Urb. Máximo Gómez, Santo Domingo Norte, R.D.</p>
+      <div class="mapa">
+        <iframe
+          title="Mapa de la Iglesia Bautista El Faro"
+          src="https://www.google.com/maps?q=Calle+Calixto+Garcia+17,+Urbanizacion+Maximo+Gomez,+Santo+Domingo+Norte&output=embed"
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          allowfullscreen>
+        </iframe>
       </div>
     </section>
   </main>
@@ -76,6 +99,13 @@
 
     <p class="copy">© 2026 Iglesia Bautista El Faro</p>
   </footer>
+
+  <a class="wa-flotante" href="https://wa.me/18099467461" target="_blank" rel="noopener" aria-label="Escribir por WhatsApp">
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <path d="M20 2H4a2 2 0 0 0-2 2v18l4-4h14a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2z"/>
+    </svg>
+    <span>WhatsApp</span>
+  </a>
 
   <script src="js/main.js"></script>
 </body>
