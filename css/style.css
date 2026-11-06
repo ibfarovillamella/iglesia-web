@@ -1,3 +1,8 @@
+/* =========================================
+   Iglesia Bautista El Faro - Estilos
+   ========================================= */
+
+/* ---------- Variables y base ---------- */
 :root {
   --azul: #0a2a6b;
   --azul-claro: #1e4fb8;
@@ -7,49 +12,223 @@
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
+
 html { scroll-behavior: smooth; }
-body { font-family: 'Segoe UI', Arial, sans-serif; color: var(--negro); line-height: 1.6; }
 
-.header {
-  position: sticky; top: 0; z-index: 10;
-  display: flex; justify-content: space-between; align-items: center;
-  padding: 1rem 1.5rem; background: var(--negro); color: var(--blanco);
+body {
+  font-family: 'Segoe UI', Arial, sans-serif;
+  color: var(--negro);
+  line-height: 1.6;
 }
-.logo { color: var(--blanco); text-decoration: none; font-weight: bold; font-size: 1.2rem; }
-.nav a { color: var(--blanco); text-decoration: none; margin-left: 1.5rem; }
-.nav a:hover { color: var(--azul-claro); }
-.menu-btn { display: none; background: none; border: none; color: var(--blanco); font-size: 1.8rem; cursor: pointer; }
 
+/* ---------- Encabezado y menú ---------- */
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.5rem;
+  background: var(--negro);
+  color: var(--blanco);
+}
+
+.logo {
+  color: var(--blanco);
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+.nav a {
+  color: var(--blanco);
+  text-decoration: none;
+  margin-left: 1.5rem;
+}
+
+.nav a:hover { color: var(--azul-claro); }
+
+.menu-btn {
+  display: none;
+  background: none;
+  border: none;
+  color: var(--blanco);
+  font-size: 1.8rem;
+  cursor: pointer;
+}
+
+/* ---------- Portada ---------- */
 .hero {
-  min-height: 80vh; display: flex; flex-direction: column;
-  justify-content: center; align-items: center; text-align: center;
-  padding: 2rem; color: var(--blanco);
+  min-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 2rem;
+  color: var(--blanco);
   background: linear-gradient(135deg, var(--negro), var(--azul));
 }
+
 .hero h1 { font-size: clamp(2rem, 6vw, 3.5rem); }
+
 .btn {
-  margin-top: 1.5rem; padding: .8rem 1.8rem; background: var(--azul-claro);
-  color: var(--blanco); text-decoration: none; border-radius: 6px;
+  margin-top: 1.5rem;
+  padding: .8rem 1.8rem;
+  background: var(--azul-claro);
+  color: var(--blanco);
+  text-decoration: none;
+  border-radius: 6px;
 }
 
-.section { padding: 3rem 1.5rem; max-width: 1100px; margin: auto; }
-.section h2 { color: var(--azul); margin-bottom: 1.5rem; text-align: center; }
-.section-dark { max-width: none; background: var(--negro); }
+.btn:hover { background: var(--azul); }
+
+/* ---------- Secciones ---------- */
+.section {
+  padding: 3rem 1.5rem;
+  max-width: 1100px;
+  margin: auto;
+}
+
+.section h2 {
+  color: var(--azul);
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.section-dark {
+  max-width: none;
+  background: var(--negro);
+}
+
 .section-dark h2 { color: var(--blanco); }
 
-.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.5rem; }
+.section-dark .grid {
+  max-width: 1100px;
+  margin: auto;
+}
 
-.footer { background: var(--negro); color: var(--blanco); text-align: center; padding: 2rem 1rem; }
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.5rem;
+}
+
+.vacio {
+  text-align: center;
+  opacity: .7;
+  grid-column: 1 / -1;
+}
+
+/* ---------- Tarjetas de actividades ---------- */
+.card {
+  background: var(--gris);
+  border-left: 5px solid var(--azul-claro);
+  border-radius: 8px;
+  padding: 1.2rem 1.4rem;
+}
+
+.card h3 {
+  color: var(--azul);
+  margin-bottom: .6rem;
+}
+
+/* ---------- Tarjetas de videos ---------- */
+.video-card {
+  text-decoration: none;
+  color: var(--blanco);
+  display: block;
+}
+
+.video-card h3 {
+  margin-top: .7rem;
+  font-size: 1rem;
+}
+
+.video-card:hover h3 { color: var(--azul-claro); }
+
+.video-thumb {
+  position: relative;
+  border-radius: 8px;
+  overflow: hidden;
+  aspect-ratio: 16 / 9;
+  background: #000;
+}
+
+.video-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.play {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: rgba(10, 42, 107, .85);
+  color: var(--blanco);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+}
+
+/* ---------- Pie de página ---------- */
+.footer {
+  background: var(--negro);
+  color: var(--blanco);
+  text-align: center;
+  padding: 2rem 1rem;
+  border-top: 3px solid var(--azul-claro);
+}
+
 .footer-info { margin-bottom: 1rem; }
-.social a { color: var(--blanco); margin: 0 .8rem; text-decoration: none; }
-.social a:hover { color: var(--azul-claro); }
-.copy { margin-top: 1rem; font-size: .85rem; opacity: .7; }
 
+.footer-info a {
+  color: var(--blanco);
+  text-decoration: underline;
+}
+
+.footer-info a:hover { color: var(--azul-claro); }
+
+.social a {
+  color: var(--blanco);
+  margin: 0 .8rem;
+  text-decoration: none;
+}
+
+.social a:hover { color: var(--azul-claro); }
+
+.copy {
+  margin-top: 1rem;
+  font-size: .85rem;
+  opacity: .7;
+}
+
+/* ---------- Adaptación a celulares ---------- */
 @media (max-width: 700px) {
   .menu-btn { display: block; }
-  .nav { display: none; position: absolute; top: 100%; left: 0; right: 0; background: var(--negro); flex-direction: column; }
+
+  .nav {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: var(--negro);
+    flex-direction: column;
+  }
+
   .nav.abierto { display: flex; }
-  .nav a { margin: 0; padding: 1rem 1.5rem; border-top: 1px solid #222; }
+
+  .nav a {
+    margin: 0;
+    padding: 1rem 1.5rem;
+    border-top: 1px solid #222;
+  }
 }
-.footer-info a { color: var(--blanco); text-decoration: underline; }
-.footer-info a:hover { color: var(--azul-claro); }
