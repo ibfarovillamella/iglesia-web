@@ -1,1 +1,53 @@
+:root {
+  --azul: #0a2a6b;
+  --azul-claro: #1e4fb8;
+  --negro: #0b0b0f;
+  --blanco: #ffffff;
+  --gris: #f3f5fa;
+}
 
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: 'Segoe UI', Arial, sans-serif; color: var(--negro); line-height: 1.6; }
+
+.header {
+  position: sticky; top: 0; z-index: 10;
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 1rem 1.5rem; background: var(--negro); color: var(--blanco);
+}
+.logo { color: var(--blanco); text-decoration: none; font-weight: bold; font-size: 1.2rem; }
+.nav a { color: var(--blanco); text-decoration: none; margin-left: 1.5rem; }
+.nav a:hover { color: var(--azul-claro); }
+.menu-btn { display: none; background: none; border: none; color: var(--blanco); font-size: 1.8rem; cursor: pointer; }
+
+.hero {
+  min-height: 80vh; display: flex; flex-direction: column;
+  justify-content: center; align-items: center; text-align: center;
+  padding: 2rem; color: var(--blanco);
+  background: linear-gradient(135deg, var(--negro), var(--azul));
+}
+.hero h1 { font-size: clamp(2rem, 6vw, 3.5rem); }
+.btn {
+  margin-top: 1.5rem; padding: .8rem 1.8rem; background: var(--azul-claro);
+  color: var(--blanco); text-decoration: none; border-radius: 6px;
+}
+
+.section { padding: 3rem 1.5rem; max-width: 1100px; margin: auto; }
+.section h2 { color: var(--azul); margin-bottom: 1.5rem; text-align: center; }
+.section-dark { max-width: none; background: var(--negro); }
+.section-dark h2 { color: var(--blanco); }
+
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.5rem; }
+
+.footer { background: var(--negro); color: var(--blanco); text-align: center; padding: 2rem 1rem; }
+.footer-info { margin-bottom: 1rem; }
+.social a { color: var(--blanco); margin: 0 .8rem; text-decoration: none; }
+.social a:hover { color: var(--azul-claro); }
+.copy { margin-top: 1rem; font-size: .85rem; opacity: .7; }
+
+@media (max-width: 700px) {
+  .menu-btn { display: block; }
+  .nav { display: none; position: absolute; top: 100%; left: 0; right: 0; background: var(--negro); flex-direction: column; }
+  .nav.abierto { display: flex; }
+  .nav a { margin: 0; padding: 1rem 1.5rem; border-top: 1px solid #222; }
+}
