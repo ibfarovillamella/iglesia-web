@@ -3,6 +3,30 @@ media:
   output: img
 
 content:
+  - name: noticias
+    label: Noticias y avisos
+    type: file
+    path: data/noticias.json
+    format: json
+    fields:
+      - name: items
+        label: Lista de noticias
+        type: object
+        list: true
+        fields:
+          - name: titulo
+            label: Título
+            type: string
+          - name: fecha
+            label: Fecha
+            type: date
+          - name: texto
+            label: Texto
+            type: text
+          - name: imagen
+            label: Imagen (opcional)
+            type: image
+
   - name: actividades
     label: Actividades y horarios
     type: file
