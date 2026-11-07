@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <defs>
+    <clipPath id="marco">
+      <rect width="64" height="64" rx="12"/>
+    </clipPath>
+  </defs>
+  <g clip-path="url(#marco)">
+    <rect width="64" height="64" fill="#0a2a6b"/>
+    <g stroke="#9db4e8" stroke-width="3" stroke-linecap="round">
+      <line x1="25" y1="12" x2="10" y2="6"/>
+      <line x1="24" y1="15" x2="6" y2="15"/>
+      <line x1="25" y1="18" x2="10" y2="24"/>
+      <line x1="39" y1="12" x2="54" y2="6"/>
+      <line x1="40" y1="15" x2="58" y2="15"/>
+      <line x1="39" y1="18" x2="54" y2="24"/>
+    </g>
+    <polygon points="26,11 32,5 38,11" fill="#ffffff"/>
+    <rect x="28" y="11" width="8" height="7" fill="#ffffff"/>
+    <polygon points="27,18 37,18 40,54 24,54" fill="#ffffff"/>
+    <rect x="30.5" y="26" width="3" height="5" fill="#0a2a6b"/>
+    <rect x="30.5" y="37" width="3" height="5" fill="#0a2a6b"/>
+    <path d="M0 52 C12 44 22 58 32 52 S52 44 64 52 L64 64 L0 64 Z" fill="#1e4fb8"/>
+  </g>
+</svg>
