@@ -13,6 +13,15 @@
   const FACEBOOK = 'https://www.facebook.com';
   const YOUTUBE = 'https://www.youtube.com';
 
+  // Compartir los datos con otras páginas (por ejemplo, Contacto)
+  window.IGLESIA = {
+    pastor: PASTOR,
+    telefonoMostrar: TELEFONO_MOSTRAR,
+    telefonoWhatsapp: TELEFONO_WHATSAPP,
+    direccion: DIRECCION,
+    mapaEnlace: MAPA_ENLACE
+  };
+
   // Detectar en qué página estamos
   let pagina = (window.location.pathname.split('/').pop() || 'index').toLowerCase();
   pagina = pagina.replace('.html', '') || 'index';
@@ -75,6 +84,19 @@
       <path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 0 1 16 0z"/>
       <circle cx="12" cy="10" r="3"/>
     </symbol>
+
+    <symbol id="i-telefono" viewBox="0 0 24 24">
+      <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+    </symbol>
+
+    <symbol id="i-usuario" viewBox="0 0 24 24">
+      <circle cx="12" cy="8" r="4"/>
+      <path d="M4 21a8 8 0 0 1 16 0"/>
+    </symbol>
+
+    <symbol id="i-mensaje" viewBox="0 0 24 24">
+      <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+    </symbol>
   </svg>`;
 
   // ---------- Encabezado y menú ----------
@@ -92,13 +114,13 @@
       <a href="${enlaceInicio('#noticias')}">Noticias</a>
       <a href="videos.html"${claseActiva('videos')}>Videos</a>
       <a href="${enlaceInicio('#ubicacion')}">Ubicación</a>
-      <a href="#contacto">Contacto</a>
+      <a href="contacto.html"${claseActiva('contacto')}>Contacto</a>
     </nav>
   </header>`;
 
   // ---------- Pie de página ----------
   const pie = `
-  <footer id="contacto" class="footer">
+  <footer id="pie-pagina" class="footer">
     <div class="footer-info">
       <h3>Pastor: ${PASTOR}</h3>
       <p>Teléfono / WhatsApp: <a href="https://wa.me/${TELEFONO_WHATSAPP}" target="_blank" rel="noopener">${TELEFONO_MOSTRAR}</a></p>
