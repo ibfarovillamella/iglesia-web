@@ -1,3 +1,10 @@
+// =========================================
+// Ajustes de la animación del versículo
+// =========================================
+const VELOCIDAD_ESCRITURA = 80;   // milisegundos por letra (más alto = más lento)
+const TIEMPO_LECTURA = 8000;      // milisegundos que se queda el versículo completo
+const TIEMPO_DESVANECER = 900;    // milisegundos que tarda en desaparecer
+
 // ---------- Menú móvil ----------
 const menuBtn = document.getElementById('menuBtn');
 const nav = document.getElementById('nav');
@@ -83,7 +90,7 @@ async function iniciarPortada() {
       textoEl.classList.add('escribiendo');
       for (const letra of Array.from(v.texto)) {
         textoEl.textContent += letra;
-        await esperar(45);
+        await esperar(VELOCIDAD_ESCRITURA);
       }
       textoEl.classList.remove('escribiendo');
     }
@@ -96,9 +103,9 @@ async function iniciarPortada() {
     if (versiculos.length === 1) return;
 
     // Esperar, desvanecer y pasar al siguiente
-    await esperar(6000);
+    await esperar(TIEMPO_LECTURA);
     caja.classList.add('oculto');
-    await esperar(900);
+    await esperar(TIEMPO_DESVANECER);
     indice++;
   }
 }
