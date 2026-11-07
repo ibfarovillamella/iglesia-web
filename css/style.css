@@ -329,7 +329,7 @@ body {
   background: var(--negro);
   color: var(--blanco);
   text-align: center;
-  padding: 2rem 1rem 5rem;
+  padding: 2rem 1rem;
   border-top: 3px solid var(--azul-claro);
 }
 
@@ -377,35 +377,6 @@ body {
   opacity: .7;
 }
 
-/* ---------- Botón flotante de WhatsApp ---------- */
-.wa-flotante {
-  position: fixed;
-  right: 1rem;
-  bottom: 1rem;
-  z-index: 20;
-  display: flex;
-  align-items: center;
-  gap: .5rem;
-  padding: .7rem 1.1rem;
-  background: var(--azul-claro);
-  color: var(--blanco);
-  text-decoration: none;
-  font-weight: 600;
-  border-radius: 999px;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, .35);
-  transition: background .2s, transform .2s;
-}
-
-.wa-flotante:hover {
-  background: var(--azul);
-  transform: translateY(-2px);
-}
-
-.wa-flotante svg {
-  width: 22px;
-  height: 22px;
-}
-
 /* ---------- Adaptación a celulares ---------- */
 @media (max-width: 700px) {
   .menu-btn { display: block; }
@@ -429,13 +400,6 @@ body {
   }
 
   .versiculo { min-height: 13rem; }
-
-  .wa-flotante span { display: none; }
-
-  .wa-flotante {
-    padding: .8rem;
-    border-radius: 50%;
-  }
 }
 
 @media (max-width: 400px) {
