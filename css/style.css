@@ -24,7 +24,7 @@ body {
   line-height: 1.6;
 }
 
-/* ---------- Íconos de sección ---------- */
+/* ---------- Íconos ---------- */
 .ico {
   width: 1.1em;
   height: 1.1em;
@@ -33,6 +33,18 @@ body {
   fill: none;
   stroke: currentColor;
   stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.ico-grande {
+  width: 2.2rem;
+  height: 2.2rem;
+  display: block;
+  margin: 0 auto .6rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
   stroke-linecap: round;
   stroke-linejoin: round;
 }
@@ -202,16 +214,27 @@ body {
   50% { opacity: 0; }
 }
 
+/* ---------- Botones ---------- */
 .btn {
+  display: inline-block;
   margin-top: .5rem;
   padding: .8rem 1.8rem;
   background: var(--azul-claro);
   color: var(--blanco);
   text-decoration: none;
+  border: none;
   border-radius: 6px;
+  font-family: inherit;
+  font-size: 1rem;
+  cursor: pointer;
 }
 
 .btn:hover { background: var(--azul); }
+
+.btn:disabled {
+  opacity: .6;
+  cursor: not-allowed;
+}
 
 /* ---------- Encabezado de páginas internas (fondo fijo) ---------- */
 .page-hero {
@@ -232,12 +255,19 @@ body {
   background-repeat: no-repeat;
 }
 
-/* Degradado de respaldo distinto en cada página (cuando aún no hay foto) */
+/* Degradados de respaldo distintos en cada página (cuando aún no hay foto) */
 .page-hero[data-fondo="videos"] {
   background-image:
     linear-gradient(rgba(11, 11, 15, .55), rgba(10, 42, 107, .55)),
     var(--portada-img, none),
     linear-gradient(225deg, var(--azul), var(--negro));
+}
+
+.page-hero[data-fondo="contacto"] {
+  background-image:
+    linear-gradient(rgba(11, 11, 15, .55), rgba(10, 42, 107, .55)),
+    var(--portada-img, none),
+    linear-gradient(180deg, var(--negro), var(--azul-claro));
 }
 
 .page-hero h1 {
@@ -377,7 +407,7 @@ body {
   font-size: 1.4rem;
 }
 
-/* ---------- Ubicación ---------- */
+/* ---------- Ubicación y mapa ---------- */
 .direccion {
   text-align: center;
   margin-bottom: 1.2rem;
@@ -397,6 +427,122 @@ body {
   height: 100%;
   border: 0;
   display: block;
+}
+
+/* ---------- Página de contacto ---------- */
+.contacto-info {
+  background: var(--azul);
+  color: var(--blanco);
+  padding: 2.5rem 1.5rem;
+}
+
+.contacto-info-grid {
+  max-width: 1100px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.8rem;
+  text-align: center;
+}
+
+.contacto-info-item h3 {
+  font-size: 1rem;
+  margin-bottom: .2rem;
+  color: #b9c9f0;
+}
+
+.contacto-info-item p {
+  font-weight: 600;
+}
+
+.contacto-info-item a {
+  color: var(--blanco);
+  text-decoration: underline;
+}
+
+.contacto-info-item a:hover { color: #b9c9f0; }
+
+.contacto-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2.5rem;
+  align-items: start;
+}
+
+.contacto-form h2 { margin-bottom: .4rem; }
+
+.contacto-intro {
+  text-align: center;
+  color: #4a5568;
+  margin-bottom: 1.5rem;
+}
+
+.contacto-form label {
+  display: block;
+  margin: 1rem 0 .3rem;
+  font-size: .95rem;
+  color: #3b4252;
+}
+
+.contacto-form input[type="text"],
+.contacto-form input[type="email"],
+.contacto-form textarea {
+  width: 100%;
+  padding: .7rem .8rem;
+  font-family: inherit;
+  font-size: 1rem;
+  background: var(--gris);
+  border: 1px solid #d5dbe8;
+  border-radius: 6px;
+}
+
+.contacto-form textarea { resize: vertical; }
+
+.contacto-form input:focus,
+.contacto-form textarea:focus {
+  outline: 2px solid var(--azul-claro);
+  outline-offset: 1px;
+  background: var(--blanco);
+}
+
+.contacto-form .btn { margin-top: 1.2rem; }
+
+/* Campo trampa contra robots (invisible para las personas) */
+.campo-oculto {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+}
+
+.form-estado {
+  margin-top: 1rem;
+  padding: 0;
+  border-radius: 6px;
+  font-weight: 600;
+}
+
+.form-estado.ok,
+.form-estado.error {
+  padding: .8rem 1rem;
+}
+
+.form-estado.ok {
+  background: #e3ecfb;
+  color: var(--azul);
+}
+
+.form-estado.error {
+  background: #fdecec;
+  color: #8a1c1c;
+}
+
+.contacto-mapa .mapa {
+  aspect-ratio: auto;
+  max-height: none;
+  height: 100%;
+  min-height: 420px;
 }
 
 /* ---------- Pie de página ---------- */
@@ -452,7 +598,19 @@ body {
   opacity: .7;
 }
 
-/* ---------- Adaptación a celulares ---------- */
+/* ---------- Adaptación a celulares y tabletas ---------- */
+@media (max-width: 860px) {
+  .contacto-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .contacto-mapa .mapa {
+    min-height: 320px;
+    aspect-ratio: 16 / 10;
+    height: auto;
+  }
+}
+
 @media (max-width: 700px) {
   .menu-btn { display: block; }
 
