@@ -24,6 +24,19 @@ body {
   line-height: 1.6;
 }
 
+/* ---------- Íconos de sección ---------- */
+.ico {
+  width: 1.1em;
+  height: 1.1em;
+  vertical-align: -0.15em;
+  margin-right: .5rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
 /* ---------- Encabezado y menú ---------- */
 .header {
   position: sticky;
@@ -32,16 +45,25 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem 1.5rem;
+  padding: .8rem 1.5rem;
   background: var(--negro);
   color: var(--blanco);
 }
 
 .logo {
+  display: flex;
+  align-items: center;
+  gap: .6rem;
   color: var(--blanco);
   text-decoration: none;
   font-weight: bold;
   font-size: 1.2rem;
+}
+
+.logo-icono {
+  width: 36px;
+  height: 36px;
+  flex-shrink: 0;
 }
 
 .nav a {
@@ -74,7 +96,21 @@ body {
   background: linear-gradient(135deg, var(--negro), var(--azul));
 }
 
+.hero-faro {
+  width: 96px;
+  height: 96px;
+  margin-bottom: 1rem;
+  filter: drop-shadow(0 4px 14px rgba(0, 0, 0, .5));
+}
+
 .hero h1 { font-size: clamp(2rem, 6vw, 3.5rem); }
+
+.hero-lema {
+  font-style: italic;
+  font-size: 1.3rem;
+  color: #9db4e8;
+  margin-bottom: .6rem;
+}
 
 .btn {
   margin-top: 1.5rem;
@@ -340,4 +376,9 @@ body {
     padding: .8rem;
     border-radius: 50%;
   }
+}
+
+@media (max-width: 400px) {
+  .logo { font-size: 1rem; }
+  .logo-icono { width: 30px; height: 30px; }
 }
