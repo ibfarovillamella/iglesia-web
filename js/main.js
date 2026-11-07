@@ -29,6 +29,29 @@ function esperar(ms) {
   return new Promise(resolver => setTimeout(resolver, ms));
 }
 
+function ponerFondo(elemento, ruta) {
+  if (!elemento || !ruta) return;
+  try {
+    const url = new URL(ruta, window.location.href).href.replace(/"/g, '%22');
+    elemento.style.setProperty('--portada-img', 'url("' + url + '")');
+  } catch (error) {
+    // Si la ruta no es válida, se queda el fondo de degradado
+  }
+}
+
+// ---------- Fondo del encabezado de Actividades y Videos ----------
+async function cargarFondoEncabezado() {
+  const encabezado = document.querySelector('.page-hero[data-fondo]');
+  if (!encabezado) return;
+  try {
+    const respuesta = await fetch('data/encabezados.json');
+    const datos = await respuesta.json();
+    ponerFondo(encabezado, datos[encabezado.dataset.fondo]);
+  } catch (error) {
+    // Si no se puede leer, se queda el fondo de degradado
+  }
+}
+
 // ---------- Portada: imagen de fondo y versículos ----------
 async function iniciarPortada() {
   const hero = document.getElementById('inicio');
@@ -47,14 +70,7 @@ async function iniciarPortada() {
   }
 
   // Imagen de fondo (opcional)
-  if (datos.imagen) {
-    try {
-      const url = new URL(datos.imagen, window.location.href).href.replace(/"/g, '%22');
-      hero.style.setProperty('--portada-img', 'url("' + url + '")');
-    } catch (error) {
-      // Si la ruta no es válida, se queda el fondo de degradado
-    }
-  }
+  ponerFondo(hero, datos.imagen);
 
   // Versículos
   const versiculos = (datos.versiculos || []).filter(v => v && v.texto);
@@ -198,6 +214,7 @@ async function cargarVideos() {
 }
 
 // ---------- Iniciar todo ----------
+cargarFondoEncabezado();
 iniciarPortada();
 cargarActividades();
 cargarNoticias();
