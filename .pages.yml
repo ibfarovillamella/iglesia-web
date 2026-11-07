@@ -3,6 +3,27 @@ media:
   output: img
 
 content:
+  - name: portada
+    label: Portada (foto y versículos)
+    type: file
+    path: data/portada.json
+    format: json
+    fields:
+      - name: imagen
+        label: Imagen de fondo
+        type: image
+      - name: versiculos
+        label: Versículos que aparecen en la portada
+        type: object
+        list: true
+        fields:
+          - name: texto
+            label: Texto del versículo
+            type: text
+          - name: cita
+            label: Cita (ej. Juan 3:16)
+            type: string
+
   - name: noticias
     label: Noticias y avisos
     type: file
