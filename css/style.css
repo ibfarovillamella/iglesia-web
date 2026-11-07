@@ -189,19 +189,41 @@ body {
 
 /* ---------- Encabezado de páginas internas ---------- */
 .page-hero {
+  min-height: 280px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   text-align: center;
   padding: 3rem 1.5rem;
   color: var(--blanco);
-  background: linear-gradient(135deg, var(--negro), var(--azul));
+  background-image:
+    linear-gradient(rgba(11, 11, 15, .55), rgba(10, 42, 107, .55)),
+    var(--portada-img, none),
+    linear-gradient(135deg, var(--negro), var(--azul));
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* Degradado de respaldo distinto en cada página (cuando aún no hay foto) */
+.page-hero[data-fondo="videos"] {
+  background-image:
+    linear-gradient(rgba(11, 11, 15, .55), rgba(10, 42, 107, .55)),
+    var(--portada-img, none),
+    linear-gradient(225deg, var(--azul), var(--negro));
 }
 
 .page-hero h1 {
-  font-size: clamp(1.8rem, 5vw, 2.6rem);
+  font-size: clamp(1.8rem, 5vw, 2.8rem);
+  text-shadow: 0 2px 12px rgba(0, 0, 0, .6);
 }
 
 .page-hero p {
   margin-top: .4rem;
-  color: #b9c9f0;
+  font-size: 1.1rem;
+  color: #d3def7;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, .6);
 }
 
 .pagina-contenido { min-height: 55vh; }
@@ -434,6 +456,8 @@ body {
   }
 
   .versiculo { min-height: 13rem; }
+
+  .page-hero { min-height: 220px; }
 }
 
 @media (max-width: 400px) {
