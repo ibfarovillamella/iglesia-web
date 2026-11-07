@@ -5,6 +5,12 @@ const VELOCIDAD_ESCRITURA = 80;   // milisegundos por letra (más alto = más le
 const TIEMPO_LECTURA = 8000;      // milisegundos que se queda el versículo completo
 const TIEMPO_DESVANECER = 900;    // milisegundos que tarda en desaparecer
 
+// =========================================
+// Ajustes del fondo rotativo de la portada
+// =========================================
+const TIEMPO_FONDO = 7000;        // milisegundos que se muestra cada foto
+const TRANSICION_FONDO = 1500;    // milisegundos que dura el cambio entre fotos
+
 // ---------- Utilidades ----------
 function escapar(texto) {
   const div = document.createElement('div');
@@ -29,17 +35,21 @@ function esperar(ms) {
   return new Promise(resolver => setTimeout(resolver, ms));
 }
 
-function ponerFondo(elemento, ruta) {
-  if (!elemento || !ruta) return;
+function convertirARuta(ruta) {
   try {
-    const url = new URL(ruta, window.location.href).href.replace(/"/g, '%22');
-    elemento.style.setProperty('--portada-img', 'url("' + url + '")');
+    return new URL(ruta, window.location.href).href.replace(/"/g, '%22');
   } catch (error) {
-    // Si la ruta no es válida, se queda el fondo de degradado
+    return null;
   }
 }
 
-// ---------- Fondo del encabezado de Actividades y Videos ----------
+function ponerFondo(elemento, ruta) {
+  if (!elemento || !ruta) return;
+  const url = convertirARuta(ruta);
+  if (url) elemento.style.setProperty('--portada-img', 'url("' + url + '")');
+}
+
+// ---------- Fondo del encabezado de Actividades y Videos (fijo) ----------
 async function cargarFondoEncabezado() {
   const encabezado = document.querySelector('.page-hero[data-fondo]');
   if (!encabezado) return;
@@ -52,7 +62,68 @@ async function cargarFondoEncabezado() {
   }
 }
 
-// ---------- Portada: imagen de fondo y versículos ----------
+// ---------- Fondo rotativo de la portada ----------
+function iniciarFondoRotativo(hero, datos) {
+  // Lista de imágenes (también acepta el campo antiguo "imagen")
+  let lista = Array.isArray(datos.imagenes) ? datos.imagenes : [];
+  lista = lista.filter(r => typeof r === 'string' && r.trim() !== '');
+  if (lista.length === 0 && typeof datos.imagen === 'string' && datos.imagen.trim() !== '') {
+    lista = [datos.imagen];
+  }
+  if (lista.length === 0) return;
+
+  const urls = lista.map(convertirARuta).filter(Boolean);
+  if (urls.length === 0) return;
+
+  // Precargar para que el cambio no parpadee
+  urls.forEach(u => {
+    const img = new Image();
+    img.src = u;
+  });
+
+  // Dos capas que se alternan
+  const contenedor = document.createElement('div');
+  contenedor.className = 'hero-fondos';
+  contenedor.setAttribute('aria-hidden', 'true');
+
+  const capas = [0, 1].map(() => {
+    const capa = document.createElement('div');
+    capa.className = 'hero-fondo';
+    capa.style.transition = 'opacity ' + TRANSICION_FONDO + 'ms ease';
+    contenedor.appendChild(capa);
+    return capa;
+  });
+  hero.insertBefore(contenedor, hero.firstChild);
+
+  function poner(capa, url) {
+    capa.style.backgroundImage = 'url("' + url + '")';
+  }
+
+  poner(capas[0], urls[0]);
+  capas[0].classList.add('visible');
+
+  const reducirMovimiento = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (urls.length < 2 || reducirMovimiento) return;
+
+  let actual = 0;
+  let indice = 0;
+
+  setInterval(() => {
+    indice = (indice + 1) % urls.length;
+    const saliente = capas[actual];
+    const entrante = capas[1 - actual];
+
+    poner(entrante, urls[indice]);
+    entrante.style.zIndex = 2;
+    saliente.style.zIndex = 1;
+    entrante.classList.add('visible');
+
+    setTimeout(() => saliente.classList.remove('visible'), TRANSICION_FONDO + 100);
+    actual = 1 - actual;
+  }, TIEMPO_FONDO);
+}
+
+// ---------- Portada: fondo y versículos ----------
 async function iniciarPortada() {
   const hero = document.getElementById('inicio');
   const caja = document.getElementById('versiculo');
@@ -69,8 +140,8 @@ async function iniciarPortada() {
     return;
   }
 
-  // Imagen de fondo (opcional)
-  ponerFondo(hero, datos.imagen);
+  // Fondo (una o varias fotos)
+  iniciarFondoRotativo(hero, datos);
 
   // Versículos
   const versiculos = (datos.versiculos || []).filter(v => v && v.texto);
