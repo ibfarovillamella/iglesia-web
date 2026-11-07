@@ -26,7 +26,7 @@ content:
             type: string
 
   - name: encabezados
-    label: Fondos de encabezados (Actividades y Videos)
+    label: Fondos de encabezados (Actividades, Videos y Contacto)
     type: file
     path: data/encabezados.json
     format: json
@@ -36,6 +36,9 @@ content:
         type: image
       - name: videos
         label: Fondo de la página Videos
+        type: image
+      - name: contacto
+        label: Fondo de la página Contacto
         type: image
 
   - name: noticias
