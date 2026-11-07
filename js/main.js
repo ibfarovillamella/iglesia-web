@@ -5,14 +5,6 @@ const VELOCIDAD_ESCRITURA = 80;   // milisegundos por letra (más alto = más le
 const TIEMPO_LECTURA = 8000;      // milisegundos que se queda el versículo completo
 const TIEMPO_DESVANECER = 900;    // milisegundos que tarda en desaparecer
 
-// ---------- Menú móvil ----------
-const menuBtn = document.getElementById('menuBtn');
-const nav = document.getElementById('nav');
-menuBtn.addEventListener('click', () => nav.classList.toggle('abierto'));
-nav.querySelectorAll('a').forEach(a =>
-  a.addEventListener('click', () => nav.classList.remove('abierto'))
-);
-
 // ---------- Utilidades ----------
 function escapar(texto) {
   const div = document.createElement('div');
@@ -43,6 +35,7 @@ async function iniciarPortada() {
   const caja = document.getElementById('versiculo');
   const textoEl = document.getElementById('versiculoTexto');
   const citaEl = document.getElementById('versiculoCita');
+  if (!hero || !caja || !textoEl || !citaEl) return;
 
   let datos = {};
   try {
@@ -113,6 +106,7 @@ async function iniciarPortada() {
 // ---------- Actividades ----------
 async function cargarActividades() {
   const contenedor = document.getElementById('listaActividades');
+  if (!contenedor) return;
   try {
     const respuesta = await fetch('data/actividades.json');
     const datos = await respuesta.json();
@@ -139,6 +133,7 @@ async function cargarActividades() {
 // ---------- Noticias ----------
 async function cargarNoticias() {
   const contenedor = document.getElementById('listaNoticias');
+  if (!contenedor) return;
   try {
     const respuesta = await fetch('data/noticias.json');
     const datos = await respuesta.json();
@@ -176,6 +171,7 @@ async function cargarNoticias() {
 // ---------- Videos ----------
 async function cargarVideos() {
   const contenedor = document.getElementById('listaVideos');
+  if (!contenedor) return;
   try {
     const respuesta = await fetch('data/videos.json');
     const datos = await respuesta.json();
