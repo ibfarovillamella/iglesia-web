@@ -26,6 +26,83 @@ function formatearFecha(fecha) {
   return f.toLocaleDateString('es-DO', { day: 'numeric', month: 'long', year: 'numeric' });
 }
 
+function esperar(ms) {
+  return new Promise(resolver => setTimeout(resolver, ms));
+}
+
+// ---------- Portada: imagen de fondo y versículos ----------
+async function iniciarPortada() {
+  const hero = document.getElementById('inicio');
+  const caja = document.getElementById('versiculo');
+  const textoEl = document.getElementById('versiculoTexto');
+  const citaEl = document.getElementById('versiculoCita');
+
+  let datos = {};
+  try {
+    const respuesta = await fetch('data/portada.json');
+    datos = await respuesta.json();
+  } catch (error) {
+    caja.style.display = 'none';
+    return;
+  }
+
+  // Imagen de fondo (opcional)
+  if (datos.imagen) {
+    try {
+      const url = new URL(datos.imagen, window.location.href).href.replace(/"/g, '%22');
+      hero.style.setProperty('--portada-img', 'url("' + url + '")');
+    } catch (error) {
+      // Si la ruta no es válida, se queda el fondo de degradado
+    }
+  }
+
+  // Versículos
+  const versiculos = (datos.versiculos || []).filter(v => v && v.texto);
+  if (versiculos.length === 0) {
+    caja.style.display = 'none';
+    return;
+  }
+
+  const reducirMovimiento = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let indice = 0;
+
+  while (true) {
+    const v = versiculos[indice % versiculos.length];
+    caja.setAttribute('aria-label', v.texto + (v.cita ? ' — ' + v.cita : ''));
+
+    // Preparar
+    textoEl.textContent = '';
+    citaEl.textContent = '';
+    citaEl.classList.remove('visible');
+    caja.classList.remove('oculto');
+
+    // Escribir letra por letra
+    if (reducirMovimiento) {
+      textoEl.textContent = v.texto;
+    } else {
+      textoEl.classList.add('escribiendo');
+      for (const letra of Array.from(v.texto)) {
+        textoEl.textContent += letra;
+        await esperar(45);
+      }
+      textoEl.classList.remove('escribiendo');
+    }
+
+    // Mostrar la cita
+    citaEl.textContent = v.cita ? '— ' + v.cita : '';
+    citaEl.classList.add('visible');
+
+    // Si solo hay un versículo, se queda fijo
+    if (versiculos.length === 1) return;
+
+    // Esperar, desvanecer y pasar al siguiente
+    await esperar(6000);
+    caja.classList.add('oculto');
+    await esperar(900);
+    indice++;
+  }
+}
+
 // ---------- Actividades ----------
 async function cargarActividades() {
   const contenedor = document.getElementById('listaActividades');
@@ -117,6 +194,8 @@ async function cargarVideos() {
   }
 }
 
+// ---------- Iniciar todo ----------
+iniciarPortada();
 cargarActividades();
 cargarNoticias();
 cargarVideos();
