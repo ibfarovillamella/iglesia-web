@@ -4,14 +4,15 @@ media:
 
 content:
   - name: portada
-    label: Portada (foto y versículos)
+    label: Portada (fotos y versículos)
     type: file
     path: data/portada.json
     format: json
     fields:
-      - name: imagen
-        label: Imagen de fondo
+      - name: imagenes
+        label: Imágenes de fondo (se turnan automáticamente)
         type: image
+        list: true
       - name: versiculos
         label: Versículos que aparecen en la portada
         type: object
