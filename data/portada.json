@@ -1,5 +1,9 @@
 {
-  "imagen": "img/lighthouse (1)-1.jpg",
+  "imagenes": [
+    "img/FondoPortada-1.jpg",
+    "img/FondoPortada2-1.jpg",
+    "img/FondoPortada3.jpg"
+  ],
   "versiculos": [
     {
       "texto": "Vosotros sois la luz del mundo; una ciudad asentada sobre un monte no se puede esconder.",
