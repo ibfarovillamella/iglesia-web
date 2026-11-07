@@ -24,6 +24,19 @@ content:
             label: Cita (ej. Juan 3:16)
             type: string
 
+  - name: encabezados
+    label: Fondos de encabezados (Actividades y Videos)
+    type: file
+    path: data/encabezados.json
+    format: json
+    fields:
+      - name: actividades
+        label: Fondo de la página Actividades
+        type: image
+      - name: videos
+        label: Fondo de la página Videos
+        type: image
+
   - name: noticias
     label: Noticias y avisos
     type: file
