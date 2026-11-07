@@ -3,7 +3,7 @@
 // =========================================
 
 // Pega aquí la clave de acceso que te llegó por correo desde web3forms.com
-const CLAVE_WEB3FORMS = 'PEGA_AQUI_TU_CLAVE';
+const CLAVE_WEB3FORMS = '5758f8d1-240e-4355-8e4e-7fccd3434b65';
 
 (function () {
   // ---------- Datos de contacto (vienen de componentes.js) ----------
