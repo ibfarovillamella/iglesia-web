@@ -11,6 +11,12 @@ const TIEMPO_DESVANECER = 900;    // milisegundos que tarda en desaparecer
 const TIEMPO_FONDO = 7000;        // milisegundos que se muestra cada foto
 const TRANSICION_FONDO = 1500;    // milisegundos que dura el cambio entre fotos
 
+// =========================================
+// Ajustes de las noticias
+// =========================================
+const NOTICIA_LARGA_CARACTERES = 320;  // más de esto: el texto se recorta con "Ver más"
+const NOTICIA_LARGA_LINEAS = 6;        // o más de estas líneas
+
 // ---------- Utilidades ----------
 function escapar(texto) {
   const div = document.createElement('div');
@@ -49,7 +55,49 @@ function ponerFondo(elemento, ruta) {
   if (url) elemento.style.setProperty('--portada-img', 'url("' + url + '")');
 }
 
-// ---------- Fondo del encabezado de Actividades y Videos (fijo) ----------
+// ---------- Imagen ampliada (lightbox) ----------
+function cerrarLightbox() {
+  const caja = document.getElementById('lightbox');
+  if (!caja) return;
+  caja.classList.remove('abierto');
+  document.body.style.overflow = '';
+}
+
+function abrirLightbox(src, alt) {
+  let caja = document.getElementById('lightbox');
+
+  if (!caja) {
+    caja = document.createElement('div');
+    caja.id = 'lightbox';
+    caja.className = 'lightbox';
+    caja.setAttribute('role', 'dialog');
+    caja.setAttribute('aria-modal', 'true');
+    caja.setAttribute('aria-label', 'Imagen ampliada');
+    caja.innerHTML =
+      '<button type="button" class="lightbox-cerrar" aria-label="Cerrar">✕</button>' +
+      '<img alt="">';
+    document.body.appendChild(caja);
+
+    caja.addEventListener('click', (evento) => {
+      if (evento.target === caja || evento.target.classList.contains('lightbox-cerrar')) {
+        cerrarLightbox();
+      }
+    });
+    document.addEventListener('keydown', (evento) => {
+      if (evento.key === 'Escape') cerrarLightbox();
+    });
+  }
+
+  const img = caja.querySelector('img');
+  img.src = src;
+  img.alt = alt || '';
+  caja.scrollTop = 0;
+  caja.classList.add('abierto');
+  document.body.style.overflow = 'hidden';
+  caja.querySelector('.lightbox-cerrar').focus();
+}
+
+// ---------- Fondo del encabezado de Actividades, Videos y Contacto (fijo) ----------
 async function cargarFondoEncabezado() {
   const encabezado = document.querySelector('.page-hero[data-fondo]');
   if (!encabezado) return;
@@ -221,6 +269,24 @@ async function cargarActividades() {
 async function cargarNoticias() {
   const contenedor = document.getElementById('listaNoticias');
   if (!contenedor) return;
+
+  // Clics: ampliar imagen y "Ver más / Ver menos"
+  contenedor.addEventListener('click', (evento) => {
+    const botonImagen = evento.target.closest('.noticia-img-btn');
+    if (botonImagen) {
+      abrirLightbox(botonImagen.dataset.src, botonImagen.dataset.alt);
+      return;
+    }
+
+    const botonMas = evento.target.closest('.ver-mas');
+    if (botonMas) {
+      const texto = botonMas.previousElementSibling;
+      const recortado = texto.classList.toggle('colapsado');
+      botonMas.textContent = recortado ? 'Ver más' : 'Ver menos';
+      botonMas.setAttribute('aria-expanded', String(!recortado));
+    }
+  });
+
   try {
     const respuesta = await fetch('data/noticias.json');
     const datos = await respuesta.json();
@@ -235,17 +301,29 @@ async function cargarNoticias() {
 
     contenedor.innerHTML = noticias.map(n => {
       const imagen = n.imagen
-        ? `<img src="${escapar(n.imagen)}" alt="${escapar(n.titulo)}" loading="lazy">`
+        ? `<button type="button" class="noticia-img-btn" data-src="${escapar(n.imagen)}" data-alt="${escapar(n.titulo)}" aria-label="Ampliar imagen: ${escapar(n.titulo)}">
+             <img src="${escapar(n.imagen)}" alt="${escapar(n.titulo)}" loading="lazy">
+           </button>`
         : '';
+
       const fecha = formatearFecha(n.fecha);
-      const texto = escapar(n.texto).replace(/\n/g, '<br>');
+      const textoPlano = String(n.texto || '');
+      const lineas = (textoPlano.match(/\n/g) || []).length + 1;
+      const esLarga = textoPlano.length > NOTICIA_LARGA_CARACTERES || lineas > NOTICIA_LARGA_LINEAS;
+      const textoHtml = escapar(textoPlano).replace(/\n/g, '<br>');
+
+      const cuerpoTexto = esLarga
+        ? `<div class="noticia-texto colapsado"><p>${textoHtml}</p></div>
+           <button type="button" class="ver-mas" aria-expanded="false">Ver más</button>`
+        : `<div class="noticia-texto"><p>${textoHtml}</p></div>`;
+
       return `
         <article class="card noticia">
           ${imagen}
           <div class="noticia-cuerpo">
             ${fecha ? `<p class="noticia-fecha">${fecha}</p>` : ''}
             <h3>${escapar(n.titulo)}</h3>
-            <p>${texto}</p>
+            ${cuerpoTexto}
           </div>
         </article>
       `;
